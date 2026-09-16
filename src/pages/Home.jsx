@@ -1,12 +1,14 @@
 import Hero from "../component/Hero.jsx";
+import CardGrid from "../component/Cardgrid.jsx";
+import features from "../data/features.js";
 
-function Home  ()  {
+function Home() {
   return (
-    <div className= "text-purple-600">
-      {/* <h1>Home</h1>
-      <p>Ini adalah halaman Home</p> */}
-      <section><Hero /></section>
+    <div>
+      <Hero />
+      <CardGrid features={features} />
     </div>
   );
-};
+}
+
 export default Home;
