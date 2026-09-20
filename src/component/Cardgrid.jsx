@@ -1,37 +1,36 @@
-// import Card from "./Card";
-
 import { useEffect, useState } from "react";
 import { getData } from "../api/getData";
 import Card from "./Card";
 
-function CardGrid({features}){
+function CardGrid() {
+  const [dataProduct, setDataProduct] = useState([]);
 
-    const [dataProduct, setDataProduct] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getData();
+      setDataProduct(data);
+    };
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getData();
-            setDataProduct(data);
-        };
-        fetchData();
-    }, []);
-
-    dataProduct.map((data) => {
-        console.log(data.title, 'TITLE')
-    })
-
-    return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-2 border-slate-400">
-            {
-                dataProduct.map((data) => {
-                    return (
-                        <Card key={data.id} icon={data.icon} title={data.title} subtitle={data.subtitle}/>
-                    )
-                })
-            }
-        </div>
-    )
+  return (
+    <section className="px-6 py-12">
+      <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">
+        Produk Kami
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {dataProduct.map((data) => (
+          <Card
+            key={data.id}
+            image={data.image}
+            title={data.title}
+            price={data.price}
+            category={data.category}
+          />
+        ))}
+      </div>
+    </section>
+  );
 }
-
 
 export default CardGrid;
